@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html> 
+<head>
+    <meta charset="utf-8">
+    <title>Pew Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/9fca868103.js" crossorigin="anonymous"></script>
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+    	.sel-panel {
+    		padding-left: 20px;
+    		padding-top: 10px;
+    		padding-bottom: 10px;
+    	}
+    	#main-container {
+    		padding: 0px;
+    	}
+    	.drop-sel {
+    		padding-left: 50px;
+    	}
+    	.graph-items {
+    		margin: auto;
+    		width: 50%;
+    		padding: 10px;
+    	}
+    </style>
+</head>
+<body>
+	
+	<div id="modal-help" class="modal fade" tabindex="-1" role="dialog">
+  		<div class="modal-dialog" role="document">
+	       	<div class="modal-content">
+	          <div class="modal-header">
+	            <h4 class="modal-title">Help</h4>
+	            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	          </div>
+	          <div class="modal-body">
+	            Use the  drop downs to explore the  data set.
+	          </div>	
+        	</div><!-- /.modal-content -->
+      	</div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<a class="navbar-brand" href="#">
+			<i class="far fa-thumbs-up" id="nav-logo"></i>
+			Pew Data Explorer
+		</a>
+		<div class="collapse navbar-collapse" id="navbarNav">
+		    <div class="navbar-nav">
+		     	<!--<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>-->
+			    <a class="nav-item nav-link" href="#" tabindex="-1" data-toggle="modal" data-target="#modal-help">Help</a>
+		    </div>
+	  	</div>
+	</nav>
+
+	<div id="main-container" class="container-fluid">
+		<!-- Panel to select the graph characteristics --> 
+		<div id="main-sel-panel" class="bg-dark sel-panel">
+			<div class="row">
+				<h4 class="text-light">Select the data</h4>
+			</div>
+			<div id="quest-sel-panel" class="sel-panel">
+				<h6 class="text-light row">Question: </h6>
+				<div class="dropdown row drop-sel">
+				  <button class="btn btn-secondary btn-sm dropdown-toggle sel-btn" type="button" id="questSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				  	Select the question  
+				  </button>
+				  <div class="dropdown-menu" id="quest-sel-menu" aria-labelledby="questSelBtn">
+						<a class="dropdown-item" href="#"><small>Overall, how often do you use the internet?</small></a>
+						<a class="dropdown-item" href="#"><small>Do you do use social media?</small></a>
+						<a class="dropdown-item" href="#"><small>Does social media make you feel more connected to information about what's going on in your friends' lives?</small></a>
+						<a class="dropdown-item" href="#"><small>Does social media make you feel worse about your own life because of what you see from other friends on social media?</small></a>
+						<a class="dropdown-item" href="#"><small>Does social media make you feel better connected to your friends' feelings?</small></a>
+						<a class="dropdown-item" href="#"><small>Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?</small></a>
+						<a class="dropdown-item" href="#"><small>Does social media make you feel pressure to only post content that makes you look good to others?</small></a>
+						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people posting about things you werent invited to?</small></a>
+						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people stirring up drama?</small></a>
+						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people posting things about you that you cant change or control?</small></a>
+						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people supporting you through challenges or tough times?</small></a>
+						<a class="dropdown-item" href="#"><small>People get to show different sides of themselves on social media that they cant show offline</small></a>
+						<a class="dropdown-item" href="#"><small>People are less authentic and real on social media than they are offline?</small></a>
+						<a class="dropdown-item" href="#"><small>People share too much information about themselves on social media?</small></a>
+						<a class="dropdown-item" href="#"><small>Was there anyone in the room who watched or helped you take the survey?</small></a>
+				  </div>
+				</div>
+			</div>
+			
+			<div id="group-sel-panel" class="sel-panel">
+				<h6 class="text-light row">Group By: </h6>
+				<div class="dropdown row drop-sel">
+				  <button class="btn btn-sm btn-secondary dropdown-toggle sel-btn" type="button" id="groupSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Select how to group
+				  </button>
+				  <div class="dropdown-menu" id="group-sel-menu" aria-labelledby="groupSelBtn">
+					<a class="dropdown-item" href="#"><small>Teen's race/ethnicity</small></a>
+					<a class="dropdown-item" href="#"><small>Teen's age</small></a>
+					<a class="dropdown-item" href="#"><small>Teen's gender</small></a>
+					<a class="dropdown-item" href="#"><small>Do you consider yourself to be transgender?</small></a>
+					<a class="dropdown-item" href="#"><small>Metro status</small></a>
+					<a class="dropdown-item" href="#"><small>State</small></a>
+					<a class="dropdown-item" href="#"><small>Parent's employment status</small></a>
+					<a class="dropdown-item" href="#"><small>Household internet access</small></a>
+					<a class="dropdown-item" href="#"><small>household income</small></a>
+				  </div>
+				</div>
+			</div>
+			
+		</div>
+		<!-- Panel to put the graph --> 
+		<h4 id="graph-title" class="row graph-items">Waiting for your selection...</h4>
+		<div id="graph-panel" class="row graph-items">
+		
+		</div>
+	</div>
+
+	<script>
+		// Statically point to file location for now...eventually get user to point to data
+		var file1 = "data/PewData_01.csv"; 
+		var labels; 
+		var graphArray = {}; 
+
+		// Get the CSV data then run functions to graph the data
+		getCSVdata(file1);
+
+		
+
+		// Function to replace graph with updated groups and question 
+		function updateGraphs(){
+			// remove previous graphs 
+			$("#graph-panel").empty();
+			// Grab the two attributes to make the graph based on
+			var groupSel = $("#groupSelBtn:first-child").val(); 
+			var questSel = $("#questSelBtn:first-child").val(); 
+
+			if ((groupSel != "") && (questSel != "") && (graphArray != [])) {
+				console.log("updating graphs"); 
+				$("#graph-title").text(questSel); 
+				console.log("group: " + $("#groupSelBtn:first-child").val()); 
+				console.log("question: " + $("#questSelBtn:first-child").val());
+				 
+				// Grab the array 
+				var questionAnswers = graphArray[questSel]; 
+				var group = graphArray[groupSel]; 
+				var qCatNames = returnCategories(questionAnswers); // array for holding all options for question categories
+				var gCatNames = returnCategories(group); // array for holding all options for the group categories 
+				console.log("qCats: " + qCatNames); 
+				console.log("gCats: " + gCatNames); 
+
+				/*var groupDict = {}; 
+				for (var i=0; i<gCatNames.length; i++){
+					var ansDict = {}; 
+					for (var k=0; k<qCatNames.length; k++){
+						ansDict[qCatNames[k]] = 0; 
+					}
+					groupDict[gCatNames[i]] = ansDict; 
+				}
+				
+				for (var i=0; i<group.length; i++){
+
+					groupDict[group[i]][questionAnswers[i]] += 1; 
+				}	*/
+
+				var ansDict = {}; 
+				for (var i=0; i<qCatNames.length; i++){
+					var groupDict = {}; 
+					for (var k=0; k<gCatNames.length; k++){
+						groupDict[gCatNames[k]] = 0; 
+					}
+					ansDict[qCatNames[i]] = groupDict; 
+				}
+				
+				for (var i=0; i<questionAnswers.length; i++){
+					ansDict[questionAnswers[i]][group[i]] += 1; 
+				}
+
+				var groupCount = {}; 
+				for (var i=0; i<gCatNames.length; i++){
+					// for each category add up all of the 
+					groupCount[gCatNames[i]] = 0; 
+					for (var j=0; j<qCatNames.length; j++){
+						groupCount[gCatNames[i]] += ansDict[qCatNames[j]][gCatNames[i]]; 
+					}
+				}
+				console.log(groupCount);
+
+				console.log(ansDict); 
+
+				//Graph the histogram of just the question to start
+				var data = []; 
+				for (var j=0; j<qCatNames.length; j++){
+					
+					var answers = ansDict[qCatNames[j]]; 
+					var answerArray = new Array(gCatNames.length); 
+					var percentArray = new Array(gCatNames.length); 
+
+					for (var h=0; h<gCatNames.length; h++){
+						answerArray[h] = answers[gCatNames[h]]; 
+						percentArray[h] = (100*(answers[gCatNames[h]]/groupCount[gCatNames[h]])).toFixed(1) + "%"; 
+					};
+
+					var trace1 = {
+						x: gCatNames, 
+						y: answerArray,
+						text: percentArray,
+						type: "bar", 
+						name: qCatNames[j], 
+					};
+					data.push(trace1); 					
+				}
+				
+				var layout = {
+					barmode: 'stack'
+				};
+
+				var graphNode = document.createElement("DIV"); 
+				Plotly.newPlot(graphNode, data, layout); 
+				$("#graph-panel").append(graphNode); 
+
+
+			}
+		};
+
+		// Function to read data from CSV file and Return Object: 
+			// colNames = column names
+			// dataArray = [labelNum][dataPointNum]
+		function getCSVdata(file, callback){
+			Plotly.d3.csv(file, function(err, rows) {
+				
+				// Array of all of the column labels 
+				labels = Object.keys(rows[0]); 
+				console.log(labels); 
+				// Array for storing each of the columns based on their label
+				//graphArray = new Array(labels.length); ; 
+				
+
+				// Iterate through all the labels to create an array for each 
+				for (var labelNum=0; labelNum<labels.length; labelNum++){
+					// Store the current label so we can reference it for each row
+					var currLabel = labels[labelNum]; 
+
+					// Array for the current label to capture each row
+					var currLabelArray = new Array(rows.length);
+
+					// Iterate through the rows to pull out each of the columns
+					for (var rowNum=0; rowNum<rows.length; rowNum++){
+						// Capture the current row
+						var currRow = rows[rowNum]; 
+						// Update storage array for the current label and row
+						currLabelArray[rowNum] = currRow[currLabel]; 
+					}
+					// Store the final array for the current label in the graph array
+					graphArray[currLabel] = currLabelArray; 
+				}
+				console.log(graphArray);
+				//callback(labels, graphArray);   
+			});	
+		};
+
+		function returnCategories(catArray) {
+			var categories = []; 
+			for (var i=0; i<catArray.length; i++){
+				var currData = catArray[i];
+				if (!categories.includes(currData)){
+					categories.push(currData); 
+				}
+			}
+			return categories; 
+		};
+	</script>
+	<script>
+		
+
+
+		// Button Listeners
+		$("#group-sel-menu > .dropdown-item").on("click", function(){
+			$("#groupSelBtn:first-child").text($(this).text());
+	      	$("#groupSelBtn:first-child").val($(this).text());
+	      	updateGraphs(); 
+	  	}); 
+
+	  	$("#quest-sel-menu > .dropdown-item").on("click", function(){
+			$("#questSelBtn:first-child").text($(this).text());
+	      	$("#questSelBtn:first-child").val($(this).text());
+	      	updateGraphs(); 
+	  	}); 
+
+		// VIEW CODE
+
+
+	</script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+
+</html>
