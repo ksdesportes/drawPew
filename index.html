@@ -14,6 +14,11 @@
     		padding-top: 10px;
     		padding-bottom: 10px;
     	}
+    	.thead {
+    		margin: auto;
+    		width: 90%;
+    		padding-top: 5px;
+    	}
     	#main-container {
     		padding: 0px;
     	}
@@ -22,9 +27,21 @@
     	}
     	.graph-items {
     		margin: auto;
-    		width: 50%;
+    		width: 95%;
     		padding: 10px;
     	}
+    	#guide-panel {
+    		padding-left: 20px;
+    		padding-top: 20px;
+    	}
+    	#graph-panel { 
+    		padding-left: 20px;
+    	}
+    	#graph-row {
+    		padding-top: 20px;
+    		padding-left: 50px;
+    	}
+
     </style>
 </head>
 <body>
@@ -58,61 +75,77 @@
 
 	<div id="main-container" class="container-fluid">
 		<!-- Panel to select the graph characteristics --> 
-		<div id="main-sel-panel" class="bg-dark sel-panel">
-			<div class="row">
-				<h4 class="text-light">Select the data</h4>
-			</div>
-			<div id="quest-sel-panel" class="sel-panel">
-				<h6 class="text-light row">Question: </h6>
-				<div class="dropdown row drop-sel">
-				  <button class="btn btn-secondary btn-sm dropdown-toggle sel-btn" type="button" id="questSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				  	Select the question  
-				  </button>
-				  <div class="dropdown-menu" id="quest-sel-menu" aria-labelledby="questSelBtn">
-						<a class="dropdown-item" href="#"><small>Overall, how often do you use the internet?</small></a>
-						<a class="dropdown-item" href="#"><small>Do you do use social media?</small></a>
-						<a class="dropdown-item" href="#"><small>Does social media make you feel more connected to information about what's going on in your friends' lives?</small></a>
-						<a class="dropdown-item" href="#"><small>Does social media make you feel worse about your own life because of what you see from other friends on social media?</small></a>
-						<a class="dropdown-item" href="#"><small>Does social media make you feel better connected to your friends' feelings?</small></a>
-						<a class="dropdown-item" href="#"><small>Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?</small></a>
-						<a class="dropdown-item" href="#"><small>Does social media make you feel pressure to only post content that makes you look good to others?</small></a>
-						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people posting about things you werent invited to?</small></a>
-						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people stirring up drama?</small></a>
-						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people posting things about you that you cant change or control?</small></a>
-						<a class="dropdown-item" href="#"><small>Do you ever experience on social media people supporting you through challenges or tough times?</small></a>
-						<a class="dropdown-item" href="#"><small>People get to show different sides of themselves on social media that they cant show offline</small></a>
-						<a class="dropdown-item" href="#"><small>People are less authentic and real on social media than they are offline?</small></a>
-						<a class="dropdown-item" href="#"><small>People share too much information about themselves on social media?</small></a>
-						<a class="dropdown-item" href="#"><small>Was there anyone in the room who watched or helped you take the survey?</small></a>
-				  </div>
+		<div id="main-sel-panel" class="bg-dark sel-panel row">
+			<div class="col">
+				<div class="row">
+					<h4 class="text-light">Select the data</h4>
 				</div>
-			</div>
+				<div id="quest-sel-panel" class="sel-panel">
+					<h6 class="text-light row">Question: </h6>
+					<div class="dropdown row drop-sel">
+					  <button class="btn btn-secondary btn-sm dropdown-toggle sel-btn" type="button" id="questSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					  	Select the question  
+					  </button>
+					  <div class="dropdown-menu" id="quest-sel-menu" aria-labelledby="questSelBtn">
+							<!-- dropdown items specified in javascript var questionsToDisplay -->
+					  </div>
+					</div>
+				</div>
 			
-			<div id="group-sel-panel" class="sel-panel">
-				<h6 class="text-light row">Group By: </h6>
-				<div class="dropdown row drop-sel">
-				  <button class="btn btn-sm btn-secondary dropdown-toggle sel-btn" type="button" id="groupSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    Select how to group
-				  </button>
-				  <div class="dropdown-menu" id="group-sel-menu" aria-labelledby="groupSelBtn">
-					<a class="dropdown-item" href="#"><small>Teen's race/ethnicity</small></a>
-					<a class="dropdown-item" href="#"><small>Teen's age</small></a>
-					<a class="dropdown-item" href="#"><small>Teen's gender</small></a>
-					<a class="dropdown-item" href="#"><small>Do you consider yourself to be transgender?</small></a>
-					<a class="dropdown-item" href="#"><small>Metro status</small></a>
-					<a class="dropdown-item" href="#"><small>State</small></a>
-					<a class="dropdown-item" href="#"><small>Parent's employment status</small></a>
-					<a class="dropdown-item" href="#"><small>Household internet access</small></a>
-					<a class="dropdown-item" href="#"><small>household income</small></a>
-				  </div>
-				</div>
+				<div id="group-sel-panel" class="sel-panel">
+					<h6 class="text-light row">Group By: </h6>
+					<div class="dropdown row drop-sel">
+					  <button class="btn btn-sm btn-secondary dropdown-toggle sel-btn" type="button" id="groupSelBtn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					    Select how to group
+					  </button>
+					  <div class="dropdown-menu" id="group-sel-menu" aria-labelledby="groupSelBtn">
+						<!-- dropdown items specified in javascript var groupsToDisplay -->
+					  </div>
+					</div>
+				</div>	
+
 			</div>
 			
 		</div>
-		<!-- Panel to put the graph --> 
-		<h4 id="graph-title" class="row graph-items">Waiting for your selection...</h4>
-		<div id="graph-panel" class="row graph-items">
-		
+		<!-- Panel to put the graph and guiding questions --> 
+		<div id="graph-row" class="row"> 
+			<div id="guide-panel" class="col-3 border rounded">
+				<h5>Questions to consider...</h5>
+				<ul id="guiding-questions">
+				</ul>
+			</div>
+
+			<div class="col">
+				<div id="graph-panel" class="row">
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+					  	<a id="percent-tab-btn" class="nav-item nav-link active" href="#percent" data-toggle="tab" role="tab" aria-controls="percent" aria-selected="true">Percent in Group</a>
+            			<a id="count-tab-btn" class="nav-item nav-link" href="#count" data-toggle="tab" role="tab" aria-controls="count" aria-selected="true">Count in Group</a>
+					</div>
+			
+				</div>
+
+				<div class="tab-content" id="content-spacer">
+					<!--PERCENT TAB-->
+					<div class="tab-pane container show active fade" role="tabpanel" aria-labelledby="percent" id="percent">
+			            <div class="tab-header">
+							<h4 class="row graph-items graph-title">Waiting for your selection...</h4>
+			            </div>
+			            <div id="percent-content">
+			            </div>
+		          	</div>
+					<!--PERCENT TAB END-->	
+					<!--COUNT TAB-->
+					<div class="tab-pane container show fade" role="tabpanel" aria-labelledby="count" id="count">
+			            <div class="tab-header thead">
+							<h4 class="row graph-items graph-title">Waiting for your selection...</h4>
+			            </div>
+			            <div id="count-content">
+			            </div>
+		          	</div>
+					<!--COUNT TAB END-->	
+				</div>
+			</div> 
+
 		</div>
 	</div>
 
@@ -122,22 +155,79 @@
 		var labels; 
 		var graphArray = {}; 
 
+				// Put labels of questions from the CSV for categories you want to be able to graph 
+		var questionsToDisplay = {
+			"Overall, how often do you use the internet?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Do you do use social media?" : ["What questions do you have about this data?","What do you notice about the data?"],
+			"Does social media make you feel more connected to information about what's going on in your friends' lives?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Does social media make you feel worse about your own life because of what you see from other friends on social media?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Does social media make you feel better connected to your friends' feelings?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Does social media make you feel pressure to only post content that makes you look good to others?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Do you ever experience on social media people posting about things you werent invited to?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Do you ever experience on social media people stirring up drama?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Do you ever experience on social media people posting things about you that you cant change or control?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Do you ever experience on social media people supporting you through challenges or tough times?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"People get to show different sides of themselves on social media that they cant show offline" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"People are less authentic and real on social media than they are offline?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"People share too much information about themselves on social media?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+			"Was there anyone in the room who watched or helped you take the survey?" : ["What do you notice about the data?", "What questions do you have about this data?"],
+		}; 
+		// Put lables from CSV for categories you want to group the data by  
+		var groupsToDisplay = [
+			"Teen's race/ethnicity",
+			"Teen's age",
+			"Teen's gender",
+			"Do you consider yourself to be transgender?",
+			"Metro status",
+			"State",
+			"Parent's employment status",
+			"Household internet access",
+			"household income"
+		];
+
 		// Get the CSV data then run functions to graph the data
 		getCSVdata(file1);
 
-		
+		// Setup Dropdowns 
+		addQuestionOptions(); 
+		addGroupOptions(); 
+
+		function addQuestionOptions(){
+			// Iterate through all of the questions in the dictionary
+			var questionArray = Object.keys(questionsToDisplay); 
+			for (var i=0; i<questionArray.length; i++){
+				// Create an element to add to the quest-sel-menu drop down 
+				var currDropDown = $("<a><small></small></a>").text(questionArray[i]);
+				currDropDown.addClass("dropdown-item"); 
+				$("#quest-sel-menu").append(currDropDown); 
+			}
+		};
+
+		function addGroupOptions(){
+			// Iterate through all of the groups in the dictionary
+			for (var i=0; i<groupsToDisplay.length; i++){
+				// Create an element to add to the quest-sel-menu drop down 
+				var currDropDown = $("<a><small></small></a>").text(groupsToDisplay[i]);
+				currDropDown.addClass("dropdown-item"); 
+				$("#group-sel-menu").append(currDropDown); 
+			}
+		};
+
 
 		// Function to replace graph with updated groups and question 
 		function updateGraphs(){
 			// remove previous graphs 
-			$("#graph-panel").empty();
+			$("#percent-content").empty();
+			$("#count-content").empty(); 
+
 			// Grab the two attributes to make the graph based on
 			var groupSel = $("#groupSelBtn:first-child").val(); 
 			var questSel = $("#questSelBtn:first-child").val(); 
 
 			if ((groupSel != "") && (questSel != "") && (graphArray != [])) {
 				console.log("updating graphs"); 
-				$("#graph-title").text(questSel); 
+				$(".graph-title").text(questSel); 
 				console.log("group: " + $("#groupSelBtn:first-child").val()); 
 				console.log("question: " + $("#questSelBtn:first-child").val());
 				 
@@ -149,20 +239,11 @@
 				console.log("qCats: " + qCatNames); 
 				console.log("gCats: " + gCatNames); 
 
-				/*var groupDict = {}; 
-				for (var i=0; i<gCatNames.length; i++){
-					var ansDict = {}; 
-					for (var k=0; k<qCatNames.length; k++){
-						ansDict[qCatNames[k]] = 0; 
-					}
-					groupDict[gCatNames[i]] = ansDict; 
-				}
+				// TODO: Clean up to make efficient queries to the data...reorg data structure
+				// Lots of inefficient shizzz to get the data for the graphs 
 				
-				for (var i=0; i<group.length; i++){
-
-					groupDict[group[i]][questionAnswers[i]] += 1; 
-				}	*/
-
+				// Create a two level dictionary to hold aggregated values of answers to questions per group 
+				// ansDict[indexed by group categories][indexed by answer categories]
 				var ansDict = {}; 
 				for (var i=0; i<qCatNames.length; i++){
 					var groupDict = {}; 
@@ -172,10 +253,13 @@
 					ansDict[qCatNames[i]] = groupDict; 
 				}
 				
+				// Count instances of each answer and store per group for plotly graph
 				for (var i=0; i<questionAnswers.length; i++){
 					ansDict[questionAnswers[i]][group[i]] += 1; 
 				}
 
+
+				// Get number of data points within each "group" 
 				var groupCount = {}; 
 				for (var i=0; i<gCatNames.length; i++){
 					// for each category add up all of the 
@@ -184,12 +268,10 @@
 						groupCount[gCatNames[i]] += ansDict[qCatNames[j]][gCatNames[i]]; 
 					}
 				}
-				console.log(groupCount);
-
-				console.log(ansDict); 
 
 				//Graph the histogram of just the question to start
-				var data = []; 
+				var pdata = [];
+				var cdata = []; 
 				for (var j=0; j<qCatNames.length; j++){
 					
 					var answers = ansDict[qCatNames[j]]; 
@@ -203,26 +285,60 @@
 
 					var trace1 = {
 						x: gCatNames, 
-						y: answerArray,
-						text: percentArray,
-						type: "bar", 
+						y: percentArray,
+						//y: answerArray,
+						hovertemplate: '%{y}%',
+						type: 'bar', 
 						name: qCatNames[j], 
 					};
-					data.push(trace1); 					
+
+					// Add data for the percent graph to the percent data array
+					pdata.push(trace1); 	
+
+					var trace2 = {
+						x: gCatNames, 
+						y: answerArray,
+						type: 'bar', 
+						name: qCatNames[j],
+					}				
+					// Add data for the count graph to the count datat array
+					cdata.push(trace2); 
 				}
 				
-				var layout = {
-					barmode: 'stack'
+				var playout = {
+					barmode: 'stack',
+					xaxis: {
+						title: groupSel,
+					}, 
+					yaxis: {
+						title: "Percent",
+					},
 				};
 
-				var graphNode = document.createElement("DIV"); 
-				Plotly.newPlot(graphNode, data, layout); 
-				$("#graph-panel").append(graphNode); 
+				var clayout = {
+					barmode: 'bar',
+					xaxis: {
+						title: groupSel,
+					}, 
+					yaxis: {
+						title: "Count",
+					},
+				};
 
+				var percentGraphNode = document.createElement("DIV"); 
+				Plotly.newPlot(percentGraphNode, pdata, playout); 
+				$("#percent-content").append(percentGraphNode); 
+
+
+				var countGraphNode = document.createElement("DIV"); 
+				Plotly.newPlot(countGraphNode, cdata, clayout); 
+				$("#count-content").append(countGraphNode); 
+				//$("#percent-content").append(countGraphNode); 
 
 			}
 		};
 
+		// TODO: Function was built for different use case so rethink structure for current graphing org. 
 		// Function to read data from CSV file and Return Object: 
 			// colNames = column names
 			// dataArray = [labelNum][dataPointNum]
@@ -259,15 +375,39 @@
 			});	
 		};
 
+		function updateConsiderations(){
+			var groupSel = $("#groupSelBtn:first-child").val(); 
+			var questSel = $("#questSelBtn:first-child").val(); 
+
+			if ((groupSel != "") && (questSel != "") && (graphArray != [])) {
+				console.log("QUESTION: " + questSel); 
+				var currQuestions =  questionsToDisplay[questSel]; 
+				// delete current list 
+				$("#guiding-questions").empty(); 
+				for (var i=0; i<currQuestions.length; i++){
+					var quest = $("<li></li>").text(currQuestions[i]); 
+					console.log("adding question: " + currQuestions[i]); 
+					$("#guiding-questions").append(quest); 
+				}	
+			}
+		};
+
+		// Function to go through an array and create an array of every unique value within the given array 
 		function returnCategories(catArray) {
+
+			// Array to store the unique values 
 			var categories = []; 
+
+			// Loop through each value in the array 
 			for (var i=0; i<catArray.length; i++){
-				var currData = catArray[i];
-				if (!categories.includes(currData)){
+				var currData = catArray[i]; 
+				// check if the current value is already represented in the unique value array 
+				if (!categories.includes(currData)){ // if not in there
+					// push unique value onto the return array 
 					categories.push(currData); 
 				}
 			}
-			return categories; 
+			return categories; // return the unique item array 
 		};
 	</script>
 	<script>
@@ -279,12 +419,14 @@
 			$("#groupSelBtn:first-child").text($(this).text());
 	      	$("#groupSelBtn:first-child").val($(this).text());
 	      	updateGraphs(); 
+	      	updateConsiderations(); 
 	  	}); 
 
 	  	$("#quest-sel-menu > .dropdown-item").on("click", function(){
 			$("#questSelBtn:first-child").text($(this).text());
 	      	$("#questSelBtn:first-child").val($(this).text());
 	      	updateGraphs(); 
+	      	updateConsiderations(); 
 	  	}); 
 
 		// VIEW CODE
