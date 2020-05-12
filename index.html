@@ -325,6 +325,16 @@
 					},
 				};
 
+				var clayout2 = {
+					barmode: 'stack',
+					xaxis: {
+						title: groupSel,
+					}, 
+					yaxis: {
+						title: "Count",
+					},
+				};
+
 				var percentGraphNode = document.createElement("DIV"); 
 				Plotly.newPlot(percentGraphNode, pdata, playout); 
 				$("#percent-content").append(percentGraphNode); 
@@ -332,7 +342,10 @@
 
 				var countGraphNode = document.createElement("DIV"); 
 				Plotly.newPlot(countGraphNode, cdata, clayout); 
+				var countGraphNode2 = document.createElement("DIV"); 
+				Plotly.newPlot(countGraphNode2, cdata, clayout2); 
 				$("#count-content").append(countGraphNode); 
+				$("#count-content").append(countGraphNode2); 
 				//$("#percent-content").append(countGraphNode); 
 
 			}
