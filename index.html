@@ -159,62 +159,77 @@
 			"Overall, how often do you use the internet?" : {
 				"questions" : ["What do you notice about the data?", "What questions do you have about this data?"],
 				"ansOrder" : ["Almost constantly", "Several times a day", "About once a day", "Several times a week", "Once a week", "Less often"],
+				"ansRemove": [],
 			},
 			"Do you do use social media?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes", "No"], 
+				"ansRemove": [],
 			}, 
 			"Does social media make you feel more connected to information about what's going on in your friends' lives?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			}, 
 			"Does social media make you feel worse about your own life because of what you see from other friends on social media?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			}, 
 			"Does social media make you feel better connected to your friends' feelings?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			}, 
 			"Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Does social media make you feel pressure to only post content that makes you look good to others?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Do you ever experience on social media people posting about things you werent invited to?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Do you ever experience on social media people stirring up drama?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Do you ever experience on social media people posting things about you that you cant change or control?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Do you ever experience on social media people supporting you through challenges or tough times?" :{
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"People get to show different sides of themselves on social media that they cant show offline" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"],
+				"ansRemove": ["Do not use social media"],
 			},
 			"People are less authentic and real on social media than they are offline?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"People share too much information about themselves on social media?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
 				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"], 
+				"ansRemove": ["Do not use social media"],
 			},
 			"Was there anyone in the room who watched or helped you take the survey?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
-				"ansOrder": [], 
+				"ansOrder": [],
+				"ansRemove": [], 
 			},
 		};
 
@@ -307,6 +322,29 @@
 				console.log(group); 
 				console.log(questSel + ": "); 
 				console.log(questionAnswers); 
+
+				//EDITING HERE! 
+				// Check if the group answer is in the removed items 
+				var answersToRemove = questionsToDisplay[questSel].ansRemove; // answers to remove for this question 
+				if (answersToRemove.length != 0){
+					// Iterate through whole array of questions and delete removed answers from array 
+					for (var i=questionAnswers.length-1; i>=0; i--) {
+						if (answersToRemove.includes(questionAnswers[i])) {
+							console.log('Getting rid of: ' + questionAnswers[i] + " From Pos: " + i); 
+							questionAnswers.splice(i,1); 
+							group.splice(i,1); 
+						}
+					}
+
+					// Get rid of answers from qCatNames
+					for (var i=qCatNames.length-1; i>= 0; i--) { 
+						if (answersToRemove.includes(qCatNames[i])){
+							qCatNames.splice(i,1); // cut value out of array
+						}
+					}
+				}
+					
+
 						
 				// If empty get answer options from traversing the data 
 				if ( qCatNames.length == 0){
@@ -323,14 +361,16 @@
 				
 				// Create a two level dictionary to hold aggregated values of answers to questions per group 
 				// ansDict[indexed by group categories][indexed by answer categories]
-				var orgAnsDict = new Object; 
+				var ansDict = new Object; 
 				
 				for (var i=0; i<qCatNames.length; i++){
 					var groupDict = []; 
 					for (var k=0; k<gCatNames.length; k++){
 						groupDict[gCatNames[k]] = 0; 
 					}
-					orgAnsDict[qCatNames[i]] = groupDict; 
+					
+					ansDict[qCatNames[i]] = groupDict; 
+					
 				}
 
 
@@ -338,19 +378,19 @@
 
 				// Count instances of each answer and store per group for plotly graph
 				for (var i=0; i<questionAnswers.length; i++){
-					console.log("ANSWERS: " + questionAnswers[i]); 
-					console.log("GROUP: " + group[i]); 
-					orgAnsDict[questionAnswers[i]][group[i]] += 1; 
+					//console.log("ANSWERS: " + questionAnswers[i]); 
+					//console.log("GROUP: " + group[i]); 
+					ansDict[questionAnswers[i]][group[i]] += 1; 
 				}
 
-				console.log("HERE 11111!!!!!!!!!!"); 
 				// Get number of data points within each "group" 
 				var groupCount = {}; 
 				for (var i=0; i<gCatNames.length; i++){
-					// for each category add up all of the 
+					
+					// for each category group add up all of the items 
 					groupCount[gCatNames[i]] = 0; 
 					for (var j=0; j<qCatNames.length; j++){
-						groupCount[gCatNames[i]] += orgAnsDict[qCatNames[j]][gCatNames[i]]; 
+						groupCount[gCatNames[i]] += ansDict[qCatNames[j]][gCatNames[i]]; 
 					}
 				}
 
@@ -359,7 +399,7 @@
 				var cdata = []; 
 				for (var j=0; j<qCatNames.length; j++){
 					
-					var answers = orgAnsDict[qCatNames[j]]; 
+					var answers = ansDict[qCatNames[j]]; 
 					var answerArray = new Array(gCatNames.length); 
 					var percentArray = new Array(gCatNames.length); 
 
