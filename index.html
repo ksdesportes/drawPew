@@ -151,28 +151,73 @@
 
 	<script>
 		// Statically point to file location for now...eventually get user to point to data
-		var file1 = "data/PewData_01.csv"; 
+		var file1 = "data/PewData_02.csv"; 
 		var labels; 
 		var graphArray = {}; 
 
-				// Put labels of questions from the CSV for categories you want to be able to graph 
 		var questionsToDisplay = {
-			"Overall, how often do you use the internet?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Do you do use social media?" : ["What questions do you have about this data?","What do you notice about the data?"],
-			"Does social media make you feel more connected to information about what's going on in your friends' lives?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Does social media make you feel worse about your own life because of what you see from other friends on social media?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Does social media make you feel better connected to your friends' feelings?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Does social media make you feel pressure to only post content that makes you look good to others?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Do you ever experience on social media people posting about things you werent invited to?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Do you ever experience on social media people stirring up drama?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Do you ever experience on social media people posting things about you that you cant change or control?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Do you ever experience on social media people supporting you through challenges or tough times?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"People get to show different sides of themselves on social media that they cant show offline" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"People are less authentic and real on social media than they are offline?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"People share too much information about themselves on social media?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-			"Was there anyone in the room who watched or helped you take the survey?" : ["What do you notice about the data?", "What questions do you have about this data?"],
-		}; 
+			"Overall, how often do you use the internet?" : {
+				"questions" : ["What do you notice about the data?", "What questions do you have about this data?"],
+				"ansOrder" : ["Almost constantly", "Several times a day", "About once a day", "Several times a week", "Once a week", "Less often", "Refused"],
+			},
+			"Do you do use social media?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes", "No"], 
+			}, 
+			"Does social media make you feel more connected to information about what's going on in your friends' lives?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+			}, 
+			"Does social media make you feel worse about your own life because of what you see from other friends on social media?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+			}, 
+			"Does social media make you feel better connected to your friends' feelings?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+			}, 
+			"Does social media make you feel pressure to post content that will be popular and get lots of comments or likes?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+			},
+			"Does social media make you feel pressure to only post content that makes you look good to others?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, a lot", "Yes, a little", "No", "Do not use social media"], 
+			},
+			"Do you ever experience on social media people posting about things you werent invited to?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+			},
+			"Do you ever experience on social media people stirring up drama?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+			},
+			"Do you ever experience on social media people posting things about you that you cant change or control?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+			},
+			"Do you ever experience on social media people supporting you through challenges or tough times?" :{
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Yes, frequently", "Yes, occasionally", "No", "Do not use social media"], 
+			},
+			"People get to show different sides of themselves on social media that they cant show offline" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"],
+			},
+			"People are less authentic and real on social media than they are offline?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"], 
+			},
+			"People share too much information about themselves on social media?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": ["Strongly agree", "Agree", "Disagree", "Strongly disagree", "Do not use social media"], 
+			},
+			"Was there anyone in the room who watched or helped you take the survey?" : {
+				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
+				"ansOrder": [], 
+			},
+		};
+
 		// Put lables from CSV for categories you want to group the data by  
 		var groupsToDisplay = [
 			"Teen's race/ethnicity",
@@ -226,46 +271,68 @@
 			var questSel = $("#questSelBtn:first-child").val(); 
 
 			if ((groupSel != "") && (questSel != "") && (graphArray != [])) {
-				console.log("updating graphs"); 
+				//console.log("updating graphs"); 
 				$(".graph-title").text(questSel); 
-				console.log("group: " + $("#groupSelBtn:first-child").val()); 
-				console.log("question: " + $("#questSelBtn:first-child").val());
+				//console.log("group: " + $("#groupSelBtn:first-child").val()); 
+				//console.log("question: " + $("#questSelBtn:first-child").val());
 				 
 				// Grab the array 
 				var questionAnswers = graphArray[questSel]; 
-				var group = graphArray[groupSel]; 
-				var qCatNames = returnCategories(questionAnswers); // array for holding all options for question categories
-				var gCatNames = returnCategories(group); // array for holding all options for the group categories 
-				console.log("qCats: " + qCatNames); 
-				console.log("gCats: " + gCatNames); 
+				var group = graphArray[groupSel];
+				var caseID = graphArray["Case ID"]; 
+				var qCatNames = questionsToDisplay[questSel].ansOrder; // array for holding all options for question categories
+				console.log("CASE ARRAY: ");
+				console.log(caseID); 
+				console.log("GROUP ARRAY: ");
+				console.log(group); 
+				console.log(questSel + ": "); 
+				console.log(questionAnswers); 
+						
+				// If empty get answer options from traversing the data 
+				if ( qCatNames.length == 0){
+					qCatNames = returnCategories(questionAnswers);
+				}; 
 
+				var gCatNames = returnCategories(group); // array for holding all options for the group categories 
+				console.log("Ans Categories: " + qCatNames); 
+				console.log("Group Categories: " + gCatNames); 
+				
 				// TODO: Clean up to make efficient queries to the data...reorg data structure
 				// Lots of inefficient shizzz to get the data for the graphs 
 				
 				// Create a two level dictionary to hold aggregated values of answers to questions per group 
 				// ansDict[indexed by group categories][indexed by answer categories]
-				var ansDict = {}; 
+				var orgAnsDict = new Object; 
+				console.log("should def be empty..."); 
+				
 				for (var i=0; i<qCatNames.length; i++){
-					var groupDict = {}; 
+					var groupDict = []; 
 					for (var k=0; k<gCatNames.length; k++){
 						groupDict[gCatNames[k]] = 0; 
 					}
-					ansDict[qCatNames[i]] = groupDict; 
+					orgAnsDict[qCatNames[i]] = groupDict; 
 				}
+				console.log("empty ans dict"); 
+				console.log(orgAnsDict); 
+				console.log("HERE!!!!!"); 
+
 				
+
 				// Count instances of each answer and store per group for plotly graph
 				for (var i=0; i<questionAnswers.length; i++){
-					ansDict[questionAnswers[i]][group[i]] += 1; 
+					console.log("ANSWERS: " + questionAnswers[i]); 
+					console.log("GROUP: " + group[i]); 
+					orgAnsDict[questionAnswers[i]][group[i]] += 1; 
 				}
 
-
+				console.log("HERE 11111!!!!!!!!!!"); 
 				// Get number of data points within each "group" 
 				var groupCount = {}; 
 				for (var i=0; i<gCatNames.length; i++){
 					// for each category add up all of the 
 					groupCount[gCatNames[i]] = 0; 
 					for (var j=0; j<qCatNames.length; j++){
-						groupCount[gCatNames[i]] += ansDict[qCatNames[j]][gCatNames[i]]; 
+						groupCount[gCatNames[i]] += orgAnsDict[qCatNames[j]][gCatNames[i]]; 
 					}
 				}
 
@@ -274,7 +341,7 @@
 				var cdata = []; 
 				for (var j=0; j<qCatNames.length; j++){
 					
-					var answers = ansDict[qCatNames[j]]; 
+					var answers = orgAnsDict[qCatNames[j]]; 
 					var answerArray = new Array(gCatNames.length); 
 					var percentArray = new Array(gCatNames.length); 
 
@@ -316,16 +383,6 @@
 				};
 
 				var clayout = {
-					barmode: 'bar',
-					xaxis: {
-						title: groupSel,
-					}, 
-					yaxis: {
-						title: "Count",
-					},
-				};
-
-				var clayout2 = {
 					barmode: 'stack',
 					xaxis: {
 						title: groupSel,
@@ -335,6 +392,7 @@
 					},
 				};
 
+
 				var percentGraphNode = document.createElement("DIV"); 
 				Plotly.newPlot(percentGraphNode, pdata, playout); 
 				$("#percent-content").append(percentGraphNode); 
@@ -342,11 +400,7 @@
 
 				var countGraphNode = document.createElement("DIV"); 
 				Plotly.newPlot(countGraphNode, cdata, clayout); 
-				var countGraphNode2 = document.createElement("DIV"); 
-				Plotly.newPlot(countGraphNode2, cdata, clayout2); 
 				$("#count-content").append(countGraphNode); 
-				$("#count-content").append(countGraphNode2); 
-				//$("#percent-content").append(countGraphNode); 
 
 			}
 		};
@@ -383,8 +437,7 @@
 					// Store the final array for the current label in the graph array
 					graphArray[currLabel] = currLabelArray; 
 				}
-				console.log(graphArray);
-				//callback(labels, graphArray);   
+				console.log(graphArray);  
 			});	
 		};
 
@@ -393,13 +446,13 @@
 			var questSel = $("#questSelBtn:first-child").val(); 
 
 			if ((groupSel != "") && (questSel != "") && (graphArray != [])) {
-				console.log("QUESTION: " + questSel); 
-				var currQuestions =  questionsToDisplay[questSel]; 
+				//console.log("QUESTION: " + questSel); 
+				var currQuestions =  questionsToDisplay[questSel].questions; 
 				// delete current list 
 				$("#guiding-questions").empty(); 
 				for (var i=0; i<currQuestions.length; i++){
 					var quest = $("<li></li>").text(currQuestions[i]); 
-					console.log("adding question: " + currQuestions[i]); 
+					//console.log("adding question: " + currQuestions[i]); 
 					$("#guiding-questions").append(quest); 
 				}	
 			}
