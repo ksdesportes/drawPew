@@ -158,7 +158,7 @@
 		var questionsToDisplay = {
 			"Overall, how often do you use the internet?" : {
 				"questions" : ["What do you notice about the data?", "What questions do you have about this data?"],
-				"ansOrder" : ["Almost constantly", "Several times a day", "About once a day", "Several times a week", "Once a week", "Less often", "Refused"],
+				"ansOrder" : ["Almost constantly", "Several times a day", "About once a day", "Several times a week", "Once a week", "Less often"],
 			},
 			"Do you do use social media?" : {
 				"questions": ["What questions do you have about this data?","What do you notice about the data?"],
@@ -219,17 +219,35 @@
 		};
 
 		// Put lables from CSV for categories you want to group the data by  
-		var groupsToDisplay = [
-			"Teen's race/ethnicity",
-			"Teen's age",
-			"Teen's gender",
-			"Do you consider yourself to be transgender?",
-			"Metro status",
-			"State",
-			"Parent's employment status",
-			"Household internet access",
-			"household income"
-		];
+		var groupsToDisplay = {
+			"Teen's race/ethnicity" : {
+				"grpOrder" : [],
+			},
+			"Teen's age" : {
+				"grpOrder" : [],
+			},
+			"Teen's gender" :  {
+				"grpOrder" : [],
+			},
+			"Do you consider yourself to be transgender?": {
+				"grpOrder" : [],
+			},
+			"Metro status": {
+				"grpOrder" : [],
+			},
+			"State": {
+				"grpOrder" : [],
+			},
+			"Parent's employment status": {
+				"grpOrder" : [],
+			},
+			"Household internet access": {
+				"grpOrder" : [],
+			},
+			"household income": {
+				"grpOrder" : ["under $30,000", "$30-49,999", "50,000-$74,999", "$75,000-$124,999", "$125,000+"],
+			},
+		};
 
 		// Get the CSV data then run functions to graph the data
 		getCSVdata(file1);
@@ -251,9 +269,10 @@
 
 		function addGroupOptions(){
 			// Iterate through all of the groups in the dictionary
-			for (var i=0; i<groupsToDisplay.length; i++){
+			var groupsArray = Object.keys(groupsToDisplay); 
+			for (var i=0; i<groupsArray.length; i++){
 				// Create an element to add to the quest-sel-menu drop down 
-				var currDropDown = $("<a><small></small></a>").text(groupsToDisplay[i]);
+				var currDropDown = $("<a><small></small></a>").text(groupsArray[i]);
 				currDropDown.addClass("dropdown-item"); 
 				$("#group-sel-menu").append(currDropDown); 
 			}
@@ -281,6 +300,7 @@
 				var group = graphArray[groupSel];
 				var caseID = graphArray["Case ID"]; 
 				var qCatNames = questionsToDisplay[questSel].ansOrder; // array for holding all options for question categories
+				var gCatNames = groupsToDisplay[groupSel].grpOrder; 
 				console.log("CASE ARRAY: ");
 				console.log(caseID); 
 				console.log("GROUP ARRAY: ");
@@ -292,8 +312,9 @@
 				if ( qCatNames.length == 0){
 					qCatNames = returnCategories(questionAnswers);
 				}; 
-
-				var gCatNames = returnCategories(group); // array for holding all options for the group categories 
+				if (gCatNames.length == 0){
+					gCatNames = returnCategories(group); // array for holding all options for the group categories 
+				}; 
 				console.log("Ans Categories: " + qCatNames); 
 				console.log("Group Categories: " + gCatNames); 
 				
@@ -303,7 +324,6 @@
 				// Create a two level dictionary to hold aggregated values of answers to questions per group 
 				// ansDict[indexed by group categories][indexed by answer categories]
 				var orgAnsDict = new Object; 
-				console.log("should def be empty..."); 
 				
 				for (var i=0; i<qCatNames.length; i++){
 					var groupDict = []; 
@@ -312,9 +332,7 @@
 					}
 					orgAnsDict[qCatNames[i]] = groupDict; 
 				}
-				console.log("empty ans dict"); 
-				console.log(orgAnsDict); 
-				console.log("HERE!!!!!"); 
+
 
 				
 
