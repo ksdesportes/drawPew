@@ -41,21 +41,54 @@
     		padding-top: 20px;
     		padding-left: 50px;
     	}
-
+    	.center {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			width: 50%;
+		}
     </style>
 </head>
 <body>
 	
+	<div id="introModal" class="modal fade">
+	    <div class="modal-dialog">
+	        <div class="modal-content">
+	            <div class="modal-header">
+	                <h5 class="modal-title">Instructions</h5>
+	                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+	                
+	            </div>
+	            <div class="modal-body">
+					<p><strong>About</strong><br>The site explores the PEW Research data set on teens use of social media and technology in 2015 [<a href="https://www.pewresearch.org/internet/2015/04/09/teens-social-media-technology-2015/">link to data</a>].</p>
+	                <p><strong>Using Dropdowns to Explore</strong><br>The data will graph the answers to the questions from the survey in a bar graph sorted by a grouping that you select. Use the drop downs to choose the question</p>
+	                <img src="QuestionDropDown.png" alt="Image of the drop down element for Question Selection" height="75" class="center">
+	                <p>Then choose how you'd like to see the data grouped.</p>
+	                <img src="GroupDropDown.png" alt="Image of the drop down element for Group Selection" height="75" class="center">
+	                <br>
+	                <p><strong>Switching Between Graphs</strong><br>You can use the two tabs to toggle between a graph that shows the percentage of teens within each group that gave a particular answer with the "Percent in Group" tab, and a graph that shows the count or number of teens within each group that gave a particular answer with the "Count in Group"</p> 
+	            </div>
+	        </div>
+    	</div>
+	</div>
+
+
 	<div id="modal-help" class="modal fade" tabindex="-1" role="dialog">
   		<div class="modal-dialog" role="document">
 	       	<div class="modal-content">
-	          <div class="modal-header">
-	            <h4 class="modal-title">Help</h4>
-	            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	          </div>
-	          <div class="modal-body">
-	            Use the  drop downs to explore the  data set.
-	          </div>	
+	          	<div class="modal-header">
+		            <h4 class="modal-title">Instructions</h4>
+		            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	          	</div>
+	          	<div class="modal-body">
+					<p><strong>About</strong><br>The site explores the PEW Research data set on teens use of social media and technology in 2015 [<a href="https://www.pewresearch.org/internet/2015/04/09/teens-social-media-technology-2015/">link to data</a>].</p>
+	                <p><strong>Using Dropdowns to Explore</strong><br>The data will graph the answers to the questions from the survey in a bar graph sorted by a grouping that you select. Use the drop downs to choose the question</p>
+	                <img src="QuestionDropDown.png" alt="Image of the drop down element for Question Selection" height="75" class="center">
+	                <p>Then choose how you'd like to see the data grouped.</p>
+	                <img src="GroupDropDown.png" alt="Image of the drop down element for Group Selection" height="75" class="center">
+	                <br>
+	                <p><strong>Switching Between Graphs</strong><br>You can use the two tabs to toggle between the "Percent in Group" tab that shows a graph of the percentage of teens within each group that gave a particular answer and the "Count in Group" tab that shows a graph of the number of teens within each group that gave a particular answer</p> 
+            	</div>		
         	</div><!-- /.modal-content -->
       	</div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -68,7 +101,7 @@
 		<div class="collapse navbar-collapse" id="navbarNav">
 		    <div class="navbar-nav">
 		     	<!--<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>-->
-			    <a class="nav-item nav-link" href="#" tabindex="-1" data-toggle="modal" data-target="#modal-help">Help</a>
+			    <a class="nav-item nav-link" href="#" tabindex="-1" data-toggle="modal" data-target="#modal-help">Instructions</a>
 		    </div>
 	  	</div>
 	</nav>
@@ -265,6 +298,11 @@
 			},
 		};
 
+		// Display instructions on page load
+		$(document).ready(function(){
+			$("#introModal").modal('show');
+		});
+		
 		// Get the CSV data then run functions to graph the data
 		getCSVdata(file1);
 
